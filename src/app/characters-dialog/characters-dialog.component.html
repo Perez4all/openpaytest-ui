@@ -1,0 +1,50 @@
+<mat-dialog-content>
+  <table mat-table [dataSource]="data.character | keyvalue" class="mat-elevation-z8" #tabla1>
+    <ng-container matColumnDef="key">
+      <th mat-header-cell *matHeaderCellDef> Property </th>
+      <td mat-cell *matCellDef="let key"> {{key.key}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Value </th>
+      <td mat-cell *matCellDef="let value">
+
+        @if(value.key == "comics" || value.key == "events" || value.key == "stories" || value.key == "series")
+        {
+          <b>Available:</b> {{value.value.available}}
+          <b>Returned:</b> {{value.value.returned}}
+          <ul>
+            <li *ngFor="let comic of value.value.items">
+              <a [href]="comic.resourceURI">{{comic.name}}</a>
+            </li>
+          </ul>
+        }
+        @else if(value.key == "thumbnail"){
+          <a [href]="value.value.path">{{value.value.path}}</a>
+          <p></p>
+          Image:
+          <p></p>
+          <object data="https://stackoverflow.com/does-not-exist.png" type="image/png">
+            <img [src]="value.value.path" width="50" height="50">
+          </object>
+        }
+        @else if(value.key == "urls"){
+          <ul>
+            <li *ngFor="let url of value.value">
+              <a [href]="url.url">{{url.type}}</a>
+            </li>
+          </ul>
+        }
+        @else {
+          {{value.value}}
+        }
+      </td>
+
+
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-dialog-content>
+
+

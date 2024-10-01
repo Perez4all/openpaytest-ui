@@ -1,0 +1,13 @@
+<div style="text-align: center;">
+  <h2>Characters</h2>
+  @if(!loaded){
+    <mat-progress-spinner mode="indeterminate">Loading</mat-progress-spinner>
+  }
+  <ul class="Characters">
+    <li style="list-style-type: none; padding: 5px;" *ngFor="let character of characters">
+      <button style="border-radius: 20px;" mat-raised-button type="button">
+        <span class="name" (click)="open($event, character)">{{character.name}}</span>
+      </button>
+    </li>
+  </ul>
+</div>
